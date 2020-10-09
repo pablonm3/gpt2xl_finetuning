@@ -1,0 +1,1 @@
+0. The first time you run the script on a new environment install the required packages by running "pip install -r requirements.txt"
