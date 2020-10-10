@@ -15,7 +15,7 @@ MODEL_TYPE = "gpt2"
 def finetune():
     # more info: https://github.com/huggingface/transformers/tree/master/examples/language-modeling
     # flags info: https://github.com/huggingface/transformers/blob/master/src/transformers/training_args.py
-    arguments = "--output_dir=output --overwrite_output_dir --model_type={} --model_name_or_path={} --do_train --train_data_file={} --per_device_train_batch_size=1 --num_train_epochs=3 --fp16 --gradient_accumulation_steps 32 --local_rank=1".format(MODEL_TYPE, MODEL_PATH, TRAIN_FILE)
+    arguments = "--output_dir=output --overwrite_output_dir --model_type={} --model_name_or_path={} --do_train --train_data_file={} --per_device_train_batch_size=1 --num_train_epochs=3 --fp16 --gradient_accumulation_steps 32".format(MODEL_TYPE, MODEL_PATH, TRAIN_FILE)
     os.system("python " + FILE_PATH +"/run_language_modeling.py " + arguments)
 
 
