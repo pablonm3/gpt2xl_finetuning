@@ -12,6 +12,7 @@ MODEL_TYPE = "gpt2"
 
 # IF WANTED TO IMPROVE RESULTS: increase per_device_train_batch_size and num_train_epochs, the firt one will require higher memory GPUs and the last more time
 
+
 def finetune():
     # more info: https://github.com/huggingface/transformers/tree/master/examples/language-modeling
     # flags info: https://github.com/huggingface/transformers/blob/master/src/transformers/training_args.py
