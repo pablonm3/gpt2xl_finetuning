@@ -8,7 +8,7 @@ MODEL_TYPE = "gpt2"
 def inference():
     SEED = random.randint(0, 999)
     arguments= "--model_type={} --model_name_or_path={} --num_return_sequences=3 --seed={} --length=50".format(MODEL_TYPE, MODEL_PATH, SEED)
-    os.system("python " + FILE_PATH +"/run_generation.py " + arguments)
+    os.system("python3 " + FILE_PATH +"/run_generation.py " + arguments)
 
 
 
