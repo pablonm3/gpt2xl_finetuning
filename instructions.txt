@@ -1,11 +1,11 @@
-0. The first time you run the script on a new environment install the required packages by running "pip3 install -r requirements.txt"
+0. The first time you run the script on a new environment install the required packages by running "pip install -r requirements.txt"
 
 
 Finetuning
 1. place you training dataset on /input/training.txt
 2. Make sure this code is running on a machine with enough memory, for finetuning of GPT2 extra large(1.5B)
 for finetuning It took 12 hours per ephoc using CPU on a AWS EC2 instance m5ad.4xlarge instance (64gb of RAM)
-3. run "python3 run_language_modeling.py"
+3. run "python run_language_modeling.py"
 4. when process finishes model will be saved in output folder
 
 
@@ -13,4 +13,4 @@ for finetuning It took 12 hours per ephoc using CPU on a AWS EC2 instance m5ad.4
 Inference
 
 1. The model to use must be placed in models folder
-2. run "run python3 inference.py"
+2. run "python inference.py"
