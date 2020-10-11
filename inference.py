@@ -2,7 +2,7 @@ import os
 import random
 FILE_PATH = os.path.dirname(os.path.realpath(__file__))
 
-MODEL_PATH = FILE_PATH + "/models/gpt2_1ephoc" #"gpt2"
+MODEL_PATH = FILE_PATH + "/models/gpt2_xl_1ephoc"
 MODEL_TYPE = "gpt2"
 
 def inference():
