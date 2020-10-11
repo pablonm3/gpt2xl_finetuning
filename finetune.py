@@ -10,7 +10,7 @@ TEST_FILE = FILE_PATH + "/input/wiki.test.raw"
 
 
 # gpt2 is the 117M version, gpt2-xl is the 1.5B version
-MODEL_PATH = "gpt2"#"gpt2-xl"
+MODEL_PATH = "gpt2-xl"# "gpt2"
 MODEL_TYPE = "gpt2"
 
 # IF WANTED TO IMPROVE RESULTS: increase per_device_train_batch_size and num_train_epochs, the firt one will require higher memory GPUs and the last more time
