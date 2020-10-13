@@ -13,5 +13,5 @@ Finetuning
 Inference
 
 1. The model to use must be placed in models folder
-2. run "python inference.py --num_return_sequences=1" replace 1 with the no. of examples you wish to generate
+2. run "python inference.py --num_return_sequences=1 --no_fp16=True" replace 1 with the no. of examples you wish to generate. remove "no_fp16" flag to use fp16
 3. Enter text prompt on terminal when the script asks you, generated text will be printed on screen and saved in /data folder as CSV
