@@ -23,7 +23,6 @@ requests==2.24.0
 sacremoses==0.0.43
 sentencepiece==0.1.91
 six==1.15.0
-spacy==2.3.2
 srsly==1.0.2
 thinc==7.4.1
 tokenizers==0.8.1rc2
