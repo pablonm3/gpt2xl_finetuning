@@ -11,7 +11,7 @@ FILE_PATH = os.path.dirname(os.path.realpath(__file__))
 MODEL_PATH = FILE_PATH + "/models/gpt2_xl_1ephoc"
 DATA_PATH = FILE_PATH + "/data"
 MODEL_TYPE = "gpt2"
-BATCH_SIZE = 20
+BATCH_SIZE = 10
 
 def inference():
     SEED = random.randint(0, 9999)
