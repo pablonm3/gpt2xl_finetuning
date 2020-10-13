@@ -24,8 +24,11 @@
 
 import argparse
 import logging
+import time
+import csv
 
 import numpy as np
+import pandas as pd
 import torch
 
 from transformers import (
@@ -155,7 +158,7 @@ def adjust_length_to_model(length, max_sequence_length):
     return length
 
 
-def main():
+def main(additional_args=None, filename=None):
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--model_type",
@@ -200,8 +203,8 @@ def main():
         action="store_true",
         help="Whether to use 16-bit (mixed) precision (through NVIDIA apex) instead of 32-bit",
     )
-    args = parser.parse_args()
-
+    args = parser.parse_args(args=additional_args)
+    print("running with a args:", args)
     args.device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
     args.n_gpu = 0 if args.no_cuda else torch.cuda.device_count()
 
@@ -232,7 +235,7 @@ def main():
     logger.info(args)
 
     prompt_text = args.prompt if args.prompt else input("Model prompt >>> ")
-
+    start_time = time.time()
     # Different models need different input formatting and/or extra arguments
     requires_preprocessing = args.model_type in PREPROCESSING_FUNCTIONS.keys()
     if requires_preprocessing:
@@ -291,7 +294,14 @@ def main():
 
         generated_sequences.append(total_sequence)
         print(total_sequence)
-
+    print("text generation took --- %s seconds ---" % (time.time() - start_time))
+    if(filename):
+        print("saving results to: ", filename)
+        with open(filename, 'w', newline='') as myfile:
+            wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+            wr.writerow(generated_sequences)
+    else:
+        print("not saving results, filename not provided")
     return generated_sequences
 
 
