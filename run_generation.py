@@ -24,7 +24,6 @@
 
 import argparse
 import logging
-import time
 import csv
 
 import numpy as np
@@ -158,7 +157,7 @@ def adjust_length_to_model(length, max_sequence_length):
     return length
 
 
-def main(additional_args=None, filename=None):
+def main(additional_args=None):
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--model_type",
@@ -235,7 +234,6 @@ def main(additional_args=None, filename=None):
     logger.info(args)
 
     prompt_text = args.prompt if args.prompt else input("Model prompt >>> ")
-    start_time = time.time()
     # Different models need different input formatting and/or extra arguments
     requires_preprocessing = args.model_type in PREPROCESSING_FUNCTIONS.keys()
     if requires_preprocessing:
@@ -294,14 +292,6 @@ def main(additional_args=None, filename=None):
 
         generated_sequences.append(total_sequence)
         print(total_sequence)
-    print("text generation took --- %s seconds ---" % (time.time() - start_time))
-    if(filename):
-        print("saving results to: ", filename)
-        with open(filename, 'w', newline='') as myfile:
-            wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
-            wr.writerows(generated_sequences)
-    else:
-        print("not saving results, filename not provided")
     return generated_sequences
 
 
