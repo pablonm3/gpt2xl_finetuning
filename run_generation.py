@@ -25,10 +25,12 @@
 import argparse
 import logging
 import csv
+import math
 
 import numpy as np
 import pandas as pd
 import torch
+from spacy.util import minibatch
 
 from transformers import (
     CTRLLMHeadModel,
@@ -96,7 +98,7 @@ def prepare_ctrl_input(args, _, tokenizer, prompt_text):
         logger.info("CTRL typically works better with lower temperatures (and lower top_k).")
 
     encoded_prompt = tokenizer.encode(prompt_text, add_special_tokens=False)
-    if not any(encoded_prompt[0] == x for x in tokenizer.control_codes.values()):
+    if not any(en coded_prompt[0] == x for x in tokenizer.control_codes.values()):
         logger.info("WARNING! You are not starting your generation from a control code so you won't get good results")
     return prompt_text
 
@@ -157,7 +159,7 @@ def adjust_length_to_model(length, max_sequence_length):
     return length
 
 
-def main(additional_args=None):
+def main(additional_args=None, batch_size=10):
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--model_type",
@@ -258,17 +260,23 @@ def main(additional_args=None):
     else:
         input_ids = encoded_prompt
 
-    output_sequences = model.generate(
-        input_ids=input_ids,
-        max_length=args.length + len(encoded_prompt[0]),
-        temperature=args.temperature,
-        top_k=args.k,
-        top_p=args.p,
-        repetition_penalty=args.repetition_penalty,
-        do_sample=True,
-        num_return_sequences=args.num_return_sequences,
-    )
-
+    seqs_list = []
+    no_batches = math.ceil(args.num_return_sequences / batch_size);
+    for i in range(no_batches):
+        print("progress batch no: {} /{}".format(i, no_batches))
+        num_to_generate = min(batch_size, args.num_return_sequences - len(seqs_list) * batch_size)
+        output_sequences = model.generate(
+            input_ids=input_ids,
+            max_length=args.length + len(encoded_prompt[0]),
+            temperature=args.temperature,
+            top_k=args.k,
+            top_p=args.p,
+            repetition_penalty=args.repetition_penalty,
+            do_sample=True,
+            num_return_sequences=num_to_generate,
+        )
+        seqs_list.append(output_sequences)
+    output_sequences = torch.cat(seqs_list)
     # Remove the batch dimension when returning multiple sequences
     if len(output_sequences.shape) > 2:
         output_sequences.squeeze_()
