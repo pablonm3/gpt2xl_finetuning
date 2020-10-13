@@ -299,7 +299,7 @@ def main(additional_args=None, filename=None):
         print("saving results to: ", filename)
         with open(filename, 'w', newline='') as myfile:
             wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
-            wr.writerow(generated_sequences)
+            wr.writerows(generated_sequences)
     else:
         print("not saving results, filename not provided")
     return generated_sequences
