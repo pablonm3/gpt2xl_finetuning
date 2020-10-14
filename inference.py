@@ -16,7 +16,7 @@ MODEL_TYPE = "gpt2"
 def inference():
     SEED = random.randint(0, 9999)
     parser = argparse.ArgumentParser()
-    parser.add_argument('--num_return_sequences', help='num_return_sequences=1', type=int)
+    parser.add_argument('--num_return_sequences', help='num_return_sequences=1', type=int, default=3)
     parser.add_argument('--batch_size', type=int, default=1)
     parser.add_argument('--no_fp16', help='', type=bool, default=False)
     args = parser.parse_args()
