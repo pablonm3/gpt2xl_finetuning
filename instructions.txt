@@ -4,7 +4,7 @@
 Finetuning
 1. place you training dataset on /input/training.txt
 2. Make sure this code is running on a machine with enough memory
-3. run "python run_language_modeling.py"
+3. run "python finetune.py"
 4. when process finishes model will be saved in output folder
 5. in order to use the gerated model move all generated files in output directory into their own folder and reference that folder in MODEL_PATH variable
 

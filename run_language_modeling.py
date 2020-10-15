@@ -144,7 +144,7 @@ def get_dataset(
         )
 
 
-def main(additional_args=None):
+def main(additional_args=None, gradient_checkpointing=False):
     # See all possible arguments in src/transformers/training_args.py
     # or by passing the --help flag to this script.
     # We now keep distinct sets of args, for a cleaner separation of concerns.
@@ -199,7 +199,7 @@ def main(additional_args=None):
     if model_args.config_name:
         config = AutoConfig.from_pretrained(model_args.config_name, cache_dir=model_args.cache_dir)
     elif model_args.model_name_or_path:
-        config = AutoConfig.from_pretrained(model_args.model_name_or_path, cache_dir=model_args.cache_dir)
+        config = AutoConfig.from_pretrained(model_args.model_name_or_path, cache_dir=model_args.cache_dir, gradient_checkpointing=gradient_checkpointing)
     else:
         config = CONFIG_MAPPING[model_args.model_type]()
         logger.warning("You are instantiating a new config instance from scratch.")
@@ -219,7 +219,7 @@ def main(additional_args=None):
             model_args.model_name_or_path,
             from_tf=bool(".ckpt" in model_args.model_name_or_path),
             config=config,
-            cache_dir=model_args.cache_dir,
+            cache_dir=model_args.cache_dir
         )
     else:
         logger.info("Training new model from scratch")
